@@ -1,1 +1,1 @@
-install.packages("dotenv")
+dependencies <- c("dotenv", "httr", "jsonlite")

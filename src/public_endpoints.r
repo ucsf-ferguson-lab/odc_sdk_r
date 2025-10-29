@@ -16,7 +16,7 @@ stats_raw_response <- function(endpoint) {
 # call this function directly if advanced user
 stats_wrapper <- function(stat_category) {
   stats_base_endpoint <- "https://services.scicrunch.io/odc/stats/"
-  stats_full_endpoint <- paste(stats_base_endpoint, "datasets")
+  stats_full_endpoint <- paste0(stats_base_endpoint, stat_category)
 
   if (stat_category == "") {
     stop("stat_category arg cannot be empty")

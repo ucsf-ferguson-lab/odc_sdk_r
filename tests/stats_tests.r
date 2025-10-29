@@ -1,7 +1,13 @@
 source("./src/public_endpoints.r")
 
+library(dplyr)
+
 # test abstracted function
-abstracted_res <- stats_labs()
+abstracted_res <- stats_labs() |>
+  dplyr::filter(community %in% c(
+    "Open Data Commons for Spinal Cord Injury",
+    "Open Data Commons for Traumatic Brain Injury"
+  ))
 
 print(head(abstracted_res), length(abstracted_res))
 

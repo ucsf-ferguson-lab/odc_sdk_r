@@ -1,1 +1,1 @@
-dependencies <- c("dotenv", "httr", "jsonlite")
+dependencies <- c("dotenv", "httr2", "jsonlite")

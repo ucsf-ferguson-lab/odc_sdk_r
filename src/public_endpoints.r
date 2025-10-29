@@ -1,29 +1,31 @@
-library(httr)
+library(httr2)
 library(jsonlite)
 
 stats_raw_response <- function(endpoint) {
-  response <- httr::GET(endpoint)
-  res_status_code <- response$status_code
+  response <- request(endpoint) |>
+    req_perform()
 
+  res_status_code <- response$status_code
   if (res_status_code != 200) {
     stop(paste("Error, request returned status code:", res_status_code))
   }
 
-  content <- httr::content(response, "text")
-  jsonlite::fromJSON(content)
+  resp_body_string(response) |>
+    fromJSON()
 }
 
 # call this function directly if advanced user
 stats_wrapper <- function(stat_category) {
-  stats_base_endpoint <- "https://services.scicrunch.io/odc/stats/"
-  stats_full_endpoint <- paste0(stats_base_endpoint, stat_category)
+  stats_full_endpoint <- paste0(
+    "https://services.scicrunch.io/odc/stats/", stat_category
+  )
 
   if (stat_category == "") {
     stop("stat_category arg cannot be empty")
   }
 
-  raw_response <- stats_raw_response(stats_full_endpoint)
-  data.frame(raw_response)
+  stats_raw_response(stats_full_endpoint) |>
+    data.frame()
 }
 
 # added layer of abstraction to simplify things for intended user
